@@ -7,4 +7,6 @@ public interface DeliveryService {
   public Delivery save(Delivery delivery);
 
   public Delivery findById(Long deliveryId);
+
+  Boolean isAgentAlreadyDelivering(final Delivery delivery);
 }
