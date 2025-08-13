@@ -29,7 +29,6 @@ public class Delivery implements Serializable{
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
   Instant startTime;
 
-
   @Column(name = "end_time")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
   Instant endTime;
@@ -87,7 +86,7 @@ public class Delivery implements Serializable{
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(final BigDecimal price) {
     this.price = price;
   }
 
@@ -95,7 +94,7 @@ public class Delivery implements Serializable{
     return commission;
   }
 
-  public void setCommission(BigDecimal commission) {
+  public void setCommission(final BigDecimal commission) {
     this.commission = commission;
   }
 
@@ -115,8 +114,6 @@ public class Delivery implements Serializable{
     this.customer = customer;
   }
 
-
-
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -132,51 +129,69 @@ public class Delivery implements Serializable{
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+
+    if (getClass() != obj.getClass()) {
       return false;
+    }
+
     Delivery other = (Delivery) obj;
     if (distance == null) {
-      if (other.distance != null)
+      if (other.distance != null) {
         return false;
-    } else if (!distance.equals(other.distance))
+      }
+    } else if (!distance.equals(other.distance)) {
       return false;
+    }
+
     if (deliveryMan == null) {
-      if (other.deliveryMan != null)
+      if (other.deliveryMan != null) {
         return false;
-    } else if (!deliveryMan.equals(other.deliveryMan))
+      }
+    } else if (!deliveryMan.equals(other.deliveryMan)) {
       return false;
+    }
+
     if (endTime == null) {
-      if (other.endTime != null)
+      if (other.endTime != null) {
         return false;
-    } else if (!endTime.equals(other.endTime))
+      }
+    } else if (!endTime.equals(other.endTime)) {
       return false;
+    }
+
     if (id == null) {
-      if (other.id != null)
+      if (other.id != null) {
         return false;
-    } else if (!id.equals(other.id))
+      }
+    } else if (!id.equals(other.id)) {
       return false;
+    }
+
     if (customer == null) {
-      if (other.customer != null)
+      if (other.customer != null) {
         return false;
-    } else if (!customer.equals(other.customer))
+      }
+    } else if (!customer.equals(other.customer)) {
       return false;
+    }
+
     if (startTime == null) {
-      if (other.startTime != null)
-        return false;
-    } else if (!startTime.equals(other.startTime))
-      return false;
-    return true;
+      return other.startTime == null;
+    } else {
+      return startTime.equals(other.startTime);
+    }
   }
 
   @Override
   public String toString() {
     return "Delivery [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", distance=" + distance + ", deliveryMan=" + deliveryMan + ", customer=" + customer + "]";
   }
-
-
 
 }

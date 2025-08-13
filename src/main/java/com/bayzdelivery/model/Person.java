@@ -36,6 +36,7 @@ public class Person implements Serializable{
   @Column(name = "email")
   String email;
 
+  @NotNull
   @Column(name = "registration_number")
   String registrationNumber;
 
@@ -75,7 +76,7 @@ public class Person implements Serializable{
     return role;
   }
 
-  public void setRole(UserRole role) {
+  public void setRole(final UserRole role) {
     this.role = role;
   }
 
