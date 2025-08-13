@@ -1,5 +1,6 @@
 package com.bayzdelivery.service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import com.bayzdelivery.repositories.DeliveryRepository;
@@ -13,14 +14,31 @@ public class DeliveryServiceImpl implements DeliveryService {
   @Autowired
   DeliveryRepository deliveryRepository;
 
+  private static final BigDecimal fivePercent = new BigDecimal("0.05");
+  private static final BigDecimal fiftyPercent = new BigDecimal("0.5");
+
   public Delivery save(Delivery delivery) {
-    return deliveryRepository.save(delivery);
+    // calculate and set commission
+    return deliveryRepository.save(setCommission(delivery));
   }
 
   public Delivery findById(Long deliveryId) {
     Optional<Delivery> optionalDelivery = deliveryRepository.findById(deliveryId);
-    if (optionalDelivery.isPresent()) {
-      return optionalDelivery.get();
-    }else return null;
+    return optionalDelivery.orElse(null);
   }
+
+  private Delivery setCommission(Delivery delivery) {
+    if (delivery.getCommission() != null && !delivery.getCommission().equals(new BigDecimal("0.0"))) {
+      return delivery;
+    }
+
+    //Commission = OrderPrice * 0.05 + Distance * 0.5
+    BigDecimal weightedDistance = new BigDecimal(delivery.getDistance()).multiply(fiftyPercent);
+    BigDecimal commission = delivery.getPrice().multiply(fivePercent).add(weightedDistance);
+
+    delivery.setCommission(commission);
+
+    return delivery;
+  }
+
 }
