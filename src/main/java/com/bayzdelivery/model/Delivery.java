@@ -1,6 +1,8 @@
 package com.bayzdelivery.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,20 +26,22 @@ public class Delivery implements Serializable{
 
   @NotNull
   @Column(name = "start_time")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
   Instant startTime;
 
-  @NotNull
+
   @Column(name = "end_time")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
   Instant endTime;
 
   @Column(name = "distance")
   Long distance;
 
   @Column(name = "price")
-  Long price;
+  BigDecimal price;
 
-  @Column(name = "comission")
-  Long comission;
+  @Column(name = "commission")
+  BigDecimal commission;
 
   @ManyToOne
   @JoinColumn(name = "delivery_man_id", referencedColumnName = "id")
@@ -79,20 +83,20 @@ public class Delivery implements Serializable{
     this.distance = distance;
   }
 
-  public Long getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Long price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 
-  public Long getComission() {
-    return comission;
+  public BigDecimal getCommission() {
+    return commission;
   }
 
-  public void setComission(Long comission) {
-    this.comission = comission;
+  public void setCommission(BigDecimal commission) {
+    this.commission = commission;
   }
 
   public Person getDeliveryMan() {
