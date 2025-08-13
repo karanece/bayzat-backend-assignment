@@ -1,6 +1,7 @@
 package com.bayzdelivery.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import com.bayzdelivery.repositories.DeliveryRepository;
@@ -40,6 +41,10 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     return Boolean.TRUE;
+  }
+
+  public List<Long> getDelayedDelivery(final Integer duration) {
+    return deliveryRepository.findDelayedDelivery(duration);
   }
 
   private Delivery setCommission(Delivery delivery) {
