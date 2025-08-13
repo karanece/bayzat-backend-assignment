@@ -1,5 +1,7 @@
 package com.bayzdelivery.model;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +26,10 @@ public class Person implements Serializable{
 
   @Column(name = "name")
   String name;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "role", nullable = false)
+  private UserRole role;
 
   @NotNull
   @Email
@@ -65,6 +71,14 @@ public class Person implements Serializable{
     this.registrationNumber = registrationNumber;
   }
 
+  public UserRole getRole() {
+    return role;
+  }
+
+  public void setRole(UserRole role) {
+    this.role = role;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -78,42 +92,54 @@ public class Person implements Serializable{
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+
+    if (getClass() != obj.getClass()) {
       return false;
+    }
+
     Person other = (Person) obj;
+
     if (email == null) {
-      if (other.email != null)
+      if (other.email != null) {
         return false;
-    } else if (!email.equals(other.email))
+      }
+    } else if (!email.equals(other.email)) {
       return false;
+    }
+
     if (id == null) {
-      if (other.id != null)
+      if (other.id != null) {
         return false;
-    } else if (!id.equals(other.id))
+      }
+    } else if (!id.equals(other.id)) {
       return false;
+    }
+
     if (name == null) {
-      if (other.name != null)
+      if (other.name != null) {
         return false;
-    } else if (!name.equals(other.name))
+      }
+    } else if (!name.equals(other.name)) {
       return false;
+    }
+
     if (registrationNumber == null) {
-      if (other.registrationNumber != null)
-        return false;
-    } else if (!registrationNumber.equals(other.registrationNumber))
-      return false;
-    return true;
+      return other.registrationNumber == null;
+    } else {
+      return registrationNumber.equals(other.registrationNumber);
+    }
   }
 
   @Override
   public String toString() {
-    return "Person [id=" + id + ", name=" + name + ", email=" + email + ", registrationNumber=" + registrationNumber + "]";
+    return "Person [id=" + id + ", name=" + name + ", role=" + role.getRole() + ", email=" + email + ", registrationNumber=" + registrationNumber + "]";
   }
-
-
-
 
 }
